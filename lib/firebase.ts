@@ -1,7 +1,7 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { initializeApp, FirebaseApp } from 'firebase/app';
+import { getAuth, Auth } from 'firebase/auth';
+import { getFirestore, Firestore } from 'firebase/firestore';
+import { getStorage, FirebaseStorage } from 'firebase/storage';
 
 // Firebase configuration
 export const firebaseConfig = {
@@ -14,10 +14,10 @@ export const firebaseConfig = {
 };
 
 // Initialize Firebase (client-side only)
-let app;
-let auth;
-let db;
-let storage;
+let app: FirebaseApp | undefined;
+let auth: Auth | undefined;
+let db: Firestore | undefined;
+let storage: FirebaseStorage | undefined;
 
 if (typeof window !== 'undefined') {
   app = initializeApp(firebaseConfig);

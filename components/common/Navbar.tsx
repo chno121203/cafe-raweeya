@@ -22,7 +22,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 font-sans">
             <Link
               href="/"
               className="text-amber-900 hover:text-amber-700 font-medium transition-colors"
@@ -106,7 +106,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-amber-200">
+          <nav className="md:hidden pb-4 border-t border-amber-200 font-sans">
             <Link
               href="/"
               className="block px-4 py-2 text-amber-900 hover:bg-amber-100 transition-colors"

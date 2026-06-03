@@ -23,7 +23,7 @@ export default function Hero() {
         </p>
 
         {/* Subtitle */}
-        <p className="text-lg text-amber-700 mb-12 max-w-2xl mx-auto">
+        <p className="text-lg text-amber-700 mb-12 max-w-2xl mx-auto font-sans">
           Experience the warmth of authentic bakery and cafe culture. From artisan bread to specialty coffee.
         </p>
 

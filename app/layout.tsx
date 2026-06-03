@@ -16,19 +16,9 @@ const geistMono = Geist_Mono({
 const amanojaku = localFont({
   src: [
     {
-      path: "../public/fonts/amanojaku-Regular.ttf",
+      path: "../public/fonts/Amanojaku Demo.otf",
       weight: "400",
       style: "normal",
-    },
-    {
-      path: "../public/fonts/amanojaku-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/amanojaku-Italic.ttf",
-      weight: "400",
-      style: "italic",
     },
   ],
   variable: "--font-amanojaku",
