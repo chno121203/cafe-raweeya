@@ -1,32 +1,40 @@
 import { Product } from '@/types/product';
-import Link from 'next/link';
 
 interface ProductCardProps {
   product: Product;
+  hideDetails?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, hideDetails }: ProductCardProps) {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-      <div className="h-48 bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
+    <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+      <div className="h-48 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center overflow-hidden">
         {product.image ? (
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
         ) : (
-          <div className="text-4xl">🥐</div>
+          <div className="text-5xl opacity-60">🍞</div>
         )}
       </div>
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-amber-900 mb-2">{product.name}</h3>
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-amber-900 font-bold">${product.price.toFixed(2)}</span>
-          <Link
-            href={`/menu/${product.id}`}
-            className="px-4 py-2 bg-amber-900 text-white rounded text-sm hover:bg-amber-800 transition-colors"
-          >
-            View
-          </Link>
-        </div>
+      <div className={`p-4 ${hideDetails ? 'pb-5' : ''}`}>
+        <h3 className="text-base font-semibold text-amber-900 mb-1 leading-snug">
+          {product.name}
+        </h3>
+        {!hideDetails && (
+          <>
+            <p className="text-sm text-gray-500 mb-4 line-clamp-2 leading-relaxed">
+              {product.description || 'No description available.'}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-amber-800 font-bold text-lg">
+                ฿{product.price.toLocaleString('th-TH', { minimumFractionDigits: 0 })}
+              </span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

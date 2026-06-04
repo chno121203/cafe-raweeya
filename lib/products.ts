@@ -1,68 +1,93 @@
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  orderBy,
+  Timestamp,
+} from 'firebase/firestore';
+import { db } from './firebase';
 import { Product } from '@/types/product';
 
-// Mock products data - replace with Firebase queries
-const mockProducts: Product[] = [
-  {
-    id: '1',
-    name: 'Artisan Sourdough',
-    description: 'Traditional sourdough bread with a crispy crust and soft interior',
-    price: 4.99,
-    category: 'bakery',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: '2',
-    name: 'Croissant',
-    description: 'Buttery and flaky French croissant',
-    price: 3.50,
-    category: 'pastries',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+const COLLECTION = 'products';
 
-export async function getProducts(): Promise<Product[]> {
-  // TODO: Replace with Firebase query
-  return mockProducts;
+function toProduct(id: string, data: Record<string, any>): Product {
+  return {
+    id,
+    name: data.name ?? '',
+    description: data.description ?? '',
+    price: data.price ?? 0,
+    category: data.category ?? '',
+    image: data.image ?? undefined,
+    createdAt: data.createdAt instanceof Timestamp ? data.createdAt.toDate() : new Date(),
+    updatedAt: data.updatedAt instanceof Timestamp ? data.updatedAt.toDate() : new Date(),
+  };
 }
 
-export async function getProductsByCategory(category: string): Promise<Product[]> {
-  // TODO: Replace with Firebase query
-  return mockProducts.filter((p) => p.category === category);
+export async function getProducts(): Promise<Product[]> {
+  if (!db) return [];
+  const q = query(collection(db, COLLECTION), orderBy('createdAt', 'desc'));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((d) => toProduct(d.id, d.data()));
+}
+
+export async function getProductsByCategory(categoryId: string): Promise<Product[]> {
+  if (!db) return [];
+  const q = query(
+    collection(db, COLLECTION),
+    where('category', '==', categoryId)
+  );
+  const snapshot = await getDocs(q);
+  const products = snapshot.docs.map((d) => toProduct(d.id, d.data()));
+  // Sort by createdAt descending in-memory to avoid needing a composite index
+  return products.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  // TODO: Replace with Firebase query
-  return mockProducts.find((p) => p.id === id) || null;
+  if (!db) return null;
+  const ref = doc(db, COLLECTION, id);
+  const snapshot = await getDoc(ref);
+  if (!snapshot.exists()) return null;
+  return toProduct(snapshot.id, snapshot.data());
 }
 
-export async function createProduct(product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<Product> {
-  // TODO: Replace with Firebase write
-  const newProduct: Product = {
+export async function createProduct(
+  product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>
+): Promise<Product> {
+  if (!db) throw new Error('Firebase not initialized');
+  const now = Timestamp.now();
+  const docRef = await addDoc(collection(db, COLLECTION), {
     ...product,
-    id: Math.random().toString(36).substr(2, 9),
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: now,
+    updatedAt: now,
+  });
+  return {
+    ...product,
+    id: docRef.id,
+    createdAt: now.toDate(),
+    updatedAt: now.toDate(),
   };
-  return newProduct;
 }
 
-export async function updateProduct(id: string, product: Partial<Product>): Promise<Product | null> {
-  // TODO: Replace with Firebase update
-  const index = mockProducts.findIndex((p) => p.id === id);
-  if (index === -1) return null;
-
-  const updated = { ...mockProducts[index], ...product, updatedAt: new Date() };
-  mockProducts[index] = updated;
-  return updated;
+export async function updateProduct(
+  id: string,
+  product: Partial<Omit<Product, 'id' | 'createdAt'>>
+): Promise<Product | null> {
+  if (!db) return null;
+  const ref = doc(db, COLLECTION, id);
+  const now = Timestamp.now();
+  await updateDoc(ref, { ...product, updatedAt: now });
+  return getProductById(id);
 }
 
 export async function deleteProduct(id: string): Promise<boolean> {
-  // TODO: Replace with Firebase delete
-  const index = mockProducts.findIndex((p) => p.id === id);
-  if (index === -1) return false;
-
-  mockProducts.splice(index, 1);
+  if (!db) return false;
+  const ref = doc(db, COLLECTION, id);
+  await deleteDoc(ref);
   return true;
 }

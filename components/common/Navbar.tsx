@@ -12,9 +12,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo and Cafe Name */}
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-14 h-14 rounded-full border-2 border-amber-900 flex items-center justify-center bg-white">
-              <span className="text-xl font-bold text-amber-900">☕</span>
-            </div>
+            <img 
+              src="/images/logo.png" 
+              alt="Raweeya House Logo" 
+              className="w-14 h-14 object-cover rounded-full shadow-sm border-2 border-amber-900"
+            />
             <div>
               <h1 className="text-lg font-bold text-amber-900">Cafe Raweeya</h1>
               <p className="text-xs text-amber-700">Bakery & Cafe</p>

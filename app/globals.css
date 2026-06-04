@@ -11,6 +11,19 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-amanojaku: var(--font-amanojaku);
+  
+  /* Japanese Muji-style Cafe Theme Overrides */
+  --color-amber-50: #F9F6F0; /* Soft Off-White / Linen */
+  --color-amber-100: #F0EAD6; /* Vanilla */
+  --color-amber-200: #E3D9C1; 
+  --color-amber-300: #D1C4A5;
+  --color-amber-400: #A89F82; 
+  --color-amber-500: #899A7B; /* Light Matcha */
+  --color-amber-600: #748466; /* Soft Matcha Green */
+  --color-amber-700: #5F6E52; /* Darker Matcha */
+  --color-amber-800: #574B40; /* Soft Espresso */
+  --color-amber-900: #40362E; /* Deep Espresso Brown */
+  --color-amber-950: #2B231D;
 }
 
 @media (prefers-color-scheme: dark) {

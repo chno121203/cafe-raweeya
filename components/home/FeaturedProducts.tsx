@@ -1,67 +1,146 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { getProducts } from '@/lib/products';
+import { Product } from '@/types/product';
+import ProductCard from '@/components/products/ProductCard';
+import Link from 'next/link';
+
 export default function FeaturedProducts() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        // Show up to 10 latest products in the featured slider
+        setProducts(data.slice(0, 10));
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const scrollToDot = (index: number) => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+    if (maxScrollLeft <= 0) return;
+
+    let targetScroll = 0;
+    if (index === 1) {
+      targetScroll = maxScrollLeft / 2;
+    } else if (index === 2) {
+      targetScroll = maxScrollLeft;
+    }
+
+    slider.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    setActiveIndex(index);
+  };
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const handleScroll = () => {
+      const scrollLeft = slider.scrollLeft;
+      const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+      if (maxScrollLeft <= 0) return;
+
+      const percentage = scrollLeft / maxScrollLeft;
+      if (percentage < 0.25) {
+        setActiveIndex(0);
+      } else if (percentage < 0.75) {
+        setActiveIndex(1);
+      } else {
+        setActiveIndex(2);
+      }
+    };
+
+    slider.addEventListener('scroll', handleScroll, { passive: true });
+    // Run once initially
+    handleScroll();
+
+    return () => {
+      slider.removeEventListener('scroll', handleScroll);
+    };
+  }, [products]);
+
   return (
-    <section className="py-16 md:py-24 px-4 bg-amber-50">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-amber-900 mb-4 text-center">
-          Our Menus
-        </h2>
-        <p className="text-center text-gray-700 mb-12 text-lg font-sans">
-          Explore our carefully curated selection of baked goods and cafe offerings
-        </p>
+    <section className="py-16 md:py-24 px-4 bg-amber-50 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8 md:mb-12 text-center md:text-left">
+          <h2 className="text-4xl md:text-5xl font-bold text-amber-900 mb-4">
+            Our Menus
+          </h2>
+          <p className="text-gray-700 text-lg font-sans max-w-2xl">
+            Explore our carefully curated selection of baked goods and cafe offerings. Freshly made every day.
+          </p>
+        </div>
 
-        {/* Menu Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Bakery Menu Card */}
-          <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div className="h-48 bg-gradient-to-br from-amber-200 to-orange-200 flex items-center justify-center">
-              <div className="text-6xl">🥐</div>
-            </div>
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-amber-900 mb-4">Bakery & Pastries</h3>
-              <p className="text-gray-700 mb-6 font-sans">
-                Fresh artisan bread, croissants, pastries, and seasonal baked goods made with 
-                premium ingredients and traditional baking methods.
-              </p>
-              <ul className="text-sm text-gray-600 space-y-2 mb-6 font-sans">
-                <li>✓ Artisan Bread</li>
-                <li>✓ Croissants & Pastries</li>
-                <li>✓ Seasonal Specials</li>
-                <li>✓ Custom Orders Available</li>
-              </ul>
-              <a
-                href="/menu#bakery"
-                className="inline-block w-full text-center px-6 py-2 bg-amber-900 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors duration-300"
-              >
-                View Menu
-              </a>
-            </div>
+        {/* Slider Container */}
+        {loading ? (
+          <div className="flex gap-6 overflow-hidden">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="min-w-[280px] md:min-w-[320px] bg-gray-200/60 rounded-xl h-[340px] animate-pulse shrink-0" />
+            ))}
           </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-amber-100">
+            <p className="text-amber-800 text-lg">No products available yet. Check back soon!</p>
+          </div>
+        ) : (
+          <>
+            <div 
+              ref={sliderRef}
+              className="flex gap-6 overflow-x-auto pb-6 pt-4 -mt-4 px-2 -mx-2 snap-x snap-mandatory hide-scrollbar"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <style jsx>{`
+                .hide-scrollbar::-webkit-scrollbar {
+                  display: none;
+                }
+              `}</style>
+              
+              {products.map((product) => (
+                <div key={product.id} className="min-w-[280px] md:min-w-[320px] max-w-[320px] shrink-0 snap-start">
+                  <ProductCard product={product} hideDetails={true} />
+                </div>
+              ))}
+            </div>
 
-          {/* Cafe Menu Card */}
-          <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div className="h-48 bg-gradient-to-br from-amber-100 to-yellow-100 flex items-center justify-center">
-              <div className="text-6xl">☕</div>
+            {/* Pagination Dots (3 dots) */}
+            <div className="flex justify-center items-center gap-2.5 mt-2 mb-8">
+              {[0, 1, 2].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToDot(index)}
+                  className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-950 ${
+                    activeIndex === index 
+                      ? 'w-6 h-2.5 bg-amber-900' 
+                      : 'w-2.5 h-2.5 bg-amber-200 hover:bg-amber-300'
+                  }`}
+                  aria-label={`Go to slide page ${index + 1}`}
+                />
+              ))}
             </div>
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-amber-900 mb-4">Cafe Menu</h3>
-              <p className="text-gray-700 mb-6 font-sans">
-                Specialty coffee, tea, and light fare to complement your bakery selection. 
-                Perfect for a quick bite or leisurely afternoon.
-              </p>
-              <ul className="text-sm text-gray-600 space-y-2 mb-6 font-sans">
-                <li>✓ Premium Coffee & Espresso</li>
-                <li>✓ Specialty Tea Selection</li>
-                <li>✓ Light Snacks & Sandwiches</li>
-                <li>✓ Beverages & Drinks</li>
-              </ul>
-              <a
-                href="/menu#cafe"
-                className="inline-block w-full text-center px-6 py-2 bg-amber-900 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors duration-300"
-              >
-                View Menu
-              </a>
-            </div>
-          </div>
+          </>
+        )}
+        
+        <div className="mt-6 text-center">
+          <Link
+            href="/menu"
+            className="inline-block px-10 py-3.5 bg-amber-900 text-white rounded-full font-semibold hover:bg-amber-800 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1"
+          >
+            View Full Menu
+          </Link>
         </div>
       </div>
     </section>
