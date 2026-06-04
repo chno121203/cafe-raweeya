@@ -42,7 +42,7 @@ export default function ContactPage() {
               <div className="space-y-8">
                 <div>
                   <h3 className="text-xl font-bold text-amber-900 mb-3">📍 Location</h3>
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 font-sans">
                     [Cafe Raweeya Address]
                     <br />
                     [City, Country]
@@ -51,7 +51,7 @@ export default function ContactPage() {
 
                 <div>
                   <h3 className="text-xl font-bold text-amber-900 mb-3">🕐 Hours</h3>
-                  <div className="text-gray-700 space-y-1">
+                  <div className="text-gray-700 space-y-1 font-sans">
                     <p><span className="font-semibold">Monday - Friday:</span> 7:00 AM - 7:00 PM</p>
                     <p><span className="font-semibold">Saturday:</span> 8:00 AM - 8:00 PM</p>
                     <p><span className="font-semibold">Sunday:</span> 9:00 AM - 6:00 PM</p>
@@ -60,7 +60,7 @@ export default function ContactPage() {
 
                 <div>
                   <h3 className="text-xl font-bold text-amber-900 mb-3">📞 Contact Info</h3>
-                  <div className="text-gray-700 space-y-2">
+                  <div className="text-gray-700 space-y-2 font-sans">
                     <p>
                       <a href="tel:+1234567890" className="hover:text-amber-900 transition-colors">
                         📱 +1 (234) 567-8900

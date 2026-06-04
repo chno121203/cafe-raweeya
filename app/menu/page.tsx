@@ -53,18 +53,20 @@ export default function MenuPage() {
       <div className="pt-20">
         <div className="py-16 md:py-24 px-4 bg-white">
           <div className="max-w-5xl mx-auto">
-            <SectionTitle
-              title="Our Menu"
-              subtitle="Explore our full selection of baked goods and cafe offerings"
-            />
+            <div className="font-sans">
+              <SectionTitle
+                title="Our Menu"
+                subtitle="Explore our full selection of baked goods and cafe offerings"
+              />
 
-            <CategoryFilter
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onSelectCategory={handleSelectCategory}
-            />
+              <CategoryFilter
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onSelectCategory={handleSelectCategory}
+              />
 
-            <ProductGrid products={products} loading={loading} />
+              <ProductGrid products={products} loading={loading} />
+            </div>
           </div>
         </div>
       </div>

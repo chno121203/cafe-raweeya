@@ -5,7 +5,7 @@ export default function FeaturedProducts() {
         <h2 className="text-4xl md:text-5xl font-bold text-amber-900 mb-4 text-center">
           Our Menus
         </h2>
-        <p className="text-center text-gray-700 mb-12 text-lg">
+        <p className="text-center text-gray-700 mb-12 text-lg font-sans">
           Explore our carefully curated selection of baked goods and cafe offerings
         </p>
 
@@ -18,11 +18,11 @@ export default function FeaturedProducts() {
             </div>
             <div className="p-8">
               <h3 className="text-2xl font-bold text-amber-900 mb-4">Bakery & Pastries</h3>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-700 mb-6 font-sans">
                 Fresh artisan bread, croissants, pastries, and seasonal baked goods made with 
                 premium ingredients and traditional baking methods.
               </p>
-              <ul className="text-sm text-gray-600 space-y-2 mb-6">
+              <ul className="text-sm text-gray-600 space-y-2 mb-6 font-sans">
                 <li>✓ Artisan Bread</li>
                 <li>✓ Croissants & Pastries</li>
                 <li>✓ Seasonal Specials</li>
@@ -44,11 +44,11 @@ export default function FeaturedProducts() {
             </div>
             <div className="p-8">
               <h3 className="text-2xl font-bold text-amber-900 mb-4">Cafe Menu</h3>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-700 mb-6 font-sans">
                 Specialty coffee, tea, and light fare to complement your bakery selection. 
                 Perfect for a quick bite or leisurely afternoon.
               </p>
-              <ul className="text-sm text-gray-600 space-y-2 mb-6">
+              <ul className="text-sm text-gray-600 space-y-2 mb-6 font-sans">
                 <li>✓ Premium Coffee & Espresso</li>
                 <li>✓ Specialty Tea Selection</li>
                 <li>✓ Light Snacks & Sandwiches</li>

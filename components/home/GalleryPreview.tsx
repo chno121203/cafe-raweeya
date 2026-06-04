@@ -5,7 +5,7 @@ export default function GalleryPreview() {
         <h2 className="text-4xl md:text-5xl font-bold text-amber-900 mb-4 text-center">
           Find Us
         </h2>
-        <p className="text-center text-gray-700 mb-12">
+        <p className="text-center text-gray-700 mb-12 font-sans">
           Visit us and experience the warmth of Cafe Raweeya
         </p>
 
@@ -15,7 +15,7 @@ export default function GalleryPreview() {
             {/* Address */}
             <div>
               <h3 className="text-xl font-bold text-amber-900 mb-3">📍 Address</h3>
-              <p className="text-gray-700 text-lg">
+              <p className="text-gray-700 text-lg font-sans">
                 [Cafe Raweeya Address]
                 <br />
                 [City, Country]
@@ -26,13 +26,13 @@ export default function GalleryPreview() {
             <div>
               <h3 className="text-xl font-bold text-amber-900 mb-3">🕐 Hours</h3>
               <div className="space-y-2 text-gray-700">
-                <p>
+                <p className="font-sans">
                   <span className="font-semibold">Monday - Friday:</span> 7:00 AM - 7:00 PM
                 </p>
-                <p>
+                <p className="font-sans">
                   <span className="font-semibold">Saturday:</span> 8:00 AM - 8:00 PM
                 </p>
-                <p>
+                <p className="font-sans">
                   <span className="font-semibold">Sunday:</span> 9:00 AM - 6:00 PM
                 </p>
               </div>
@@ -42,7 +42,7 @@ export default function GalleryPreview() {
             <div>
               <h3 className="text-xl font-bold text-amber-900 mb-3">📞 Contact</h3>
               <div className="space-y-2 text-gray-700">
-                <p>
+                < p className="font-sans">
                   <a
                     href="tel:+1234567890"
                     className="hover:text-amber-900 transition-colors"
@@ -50,7 +50,7 @@ export default function GalleryPreview() {
                     +1 (234) 567-8900
                   </a>
                 </p>
-                <p>
+                <p className="font-sans">
                   <a
                     href="mailto:hello@caferaweeya.com"
                     className="hover:text-amber-900 transition-colors"
@@ -67,8 +67,8 @@ export default function GalleryPreview() {
             <div className="w-full h-96 bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-5xl mb-3">🗺️</div>
-                <p className="text-gray-600 font-semibold">Map Coming Soon</p>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-gray-600 font-semibold font-sans">Map Coming Soon</p>
+                <p className="text-sm text-gray-500 mt-2 font-sans">
                   Embed your Google Map or location here
                 </p>
               </div>
@@ -78,12 +78,12 @@ export default function GalleryPreview() {
 
         {/* Call to Action */}
         <div className="mt-12 text-center">
-          <p className="text-gray-700 mb-4">
+          <p className="text-gray-700 mb-4 font-sans">
             Can't wait to visit? Call us to place an order or reserve a table!
           </p>
           <a
             href="tel:+1234567890"
-            className="inline-block px-8 py-3 bg-amber-900 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors duration-300"
+            className="inline-block px-8 py-3 bg-amber-900 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors duration-300 font-sans"
           >
             Call Now
           </a>

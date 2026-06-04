@@ -31,13 +31,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/menu"
-            className="px-8 py-3 bg-amber-900 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors duration-300"
+            className="px-8 py-3 bg-amber-900 text-white rounded-lg font-semibold hover:bg-amber-800 transition-colors duration-300 font-sans"
           >
             Browse Menu
           </a>
           <a
             href="#location"
-            className="px-8 py-3 border-2 border-amber-900 text-amber-900 rounded-lg font-semibold hover:bg-amber-50 transition-colors duration-300"
+            className="px-8 py-3 border-2 border-amber-900 text-amber-900 rounded-lg font-semibold hover:bg-amber-50 transition-colors duration-300 font-sans"
           >
             Find Us
           </a>

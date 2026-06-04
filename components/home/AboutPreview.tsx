@@ -6,7 +6,7 @@ export default function AboutPreview() {
           About Cafe Raweeya
         </h2>
 
-        <div className="space-y-6 text-lg text-gray-700">
+        <div className="space-y-6 text-lg text-gray-700 font-sans">
           <p>
             Cafe Raweeya is a sanctuary for those who appreciate the art of fresh baking and 
             quality coffee. We believe in keeping our ingredients natural, our process transparent, 
@@ -28,24 +28,24 @@ export default function AboutPreview() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
           <div className="p-6">
             <div className="text-4xl mb-4">🌾</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-2">Quality Ingredients</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold text-amber-900 mb-2 font-sans">Quality Ingredients</h3>
+            <p className="text-gray-600 font-sans">
               We source the finest ingredients for every product we create.
             </p>
           </div>
 
           <div className="p-6">
             <div className="text-4xl mb-4">☕</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-2">Fresh Daily</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold text-amber-900 mb-2 font-sans">Fresh Daily</h3>
+            <p className="text-gray-600 font-sans">
               Everything is baked fresh every day, nothing is pre-made or frozen.
             </p>
           </div>
 
           <div className="p-6">
             <div className="text-4xl mb-4">💛</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-2">Warm Hospitality</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold text-amber-900 mb-2 font-sans">Warm Hospitality</h3>
+            <p className="text-gray-600 font-sans">
               Every customer is treated like family. We serve with a smile.
             </p>
           </div>
