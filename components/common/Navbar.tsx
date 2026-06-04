@@ -31,46 +31,18 @@ export default function Navbar() {
             >
               Home
             </Link>
-            <div className="relative group">
-              <button className="text-amber-900 hover:text-amber-700 font-medium transition-colors flex items-center gap-1">
-                About Us
-                <span className="text-xs">▼</span>
-              </button>
-              <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 py-2">
-                <Link
-                  href="/about"
-                  className="block px-4 py-2 text-amber-900 hover:bg-amber-50 transition-colors"
-                >
-                  Our Story
-                </Link>
-                <a
-                  href="#values"
-                  className="block px-4 py-2 text-amber-900 hover:bg-amber-50 transition-colors"
-                >
-                  Our Values
-                </a>
-              </div>
-            </div>
-            <div className="relative group">
-              <button className="text-amber-900 hover:text-amber-700 font-medium transition-colors flex items-center gap-1">
-                Menu
-                <span className="text-xs">▼</span>
-              </button>
-              <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 py-2">
-                <Link
-                  href="/menu"
-                  className="block px-4 py-2 text-amber-900 hover:bg-amber-50 transition-colors"
-                >
-                  Bakery & Pastries
-                </Link>
-                <a
-                  href="/menu#cafe"
-                  className="block px-4 py-2 text-amber-900 hover:bg-amber-50 transition-colors"
-                >
-                  Cafe Menu
-                </a>
-              </div>
-            </div>
+            <Link
+              href="/about"
+              className="text-amber-900 hover:text-amber-700 font-medium transition-colors"
+            >
+              About Us
+            </Link>
+            <Link
+              href="/menu"
+              className="text-amber-900 hover:text-amber-700 font-medium transition-colors"
+            >
+              Menu
+            </Link>
             <Link
               href="/contact"
               className="text-amber-900 hover:text-amber-700 font-medium transition-colors"
